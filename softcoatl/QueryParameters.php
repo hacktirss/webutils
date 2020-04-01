@@ -23,7 +23,7 @@ class QueryParameters {
     }
 
     function getAttribute($key, $default = "") {
-        return $this->hasAttribute($key) ? $this->attibutes[$key] : $default;
+        return $this->presentAttribute($key) ? $this->attibutes[$key] : $default;
     }
     
     function hasAttribute($key) {

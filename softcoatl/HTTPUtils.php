@@ -53,12 +53,25 @@ class HTTPUtils {
         return array_key_exists($key, $_SESSION);
     }
 
+    public static function hasSessionArrayValue($name, $key) {
+        return array_key_exists($name, $_SESSION)
+                && array_key_exists($key, $_SERVER[$name]);
+    }
+
+    public static function getSessionArrayValue($name, $key) {
+        return self::hasSessionArrayValue($name, $key) ? $_SESSION[$name][$key] : "";
+    }
+
     public static function getSessionValue($key) {
         return self::hasSessionValue($key) ? $_SESSION[$key] : "";
     }
 
     public static function getSessionObject($key) {
         return self::hasSessionValue($key) ? unserialize($_SESSION[$key]) : null;
+    }
+
+    public static function setSessionArrayValue($name, $key, $value) {
+        $_SESSION[$name][$key] = $value;
     }
 
     public static function setSessionValue($key, $value) {
@@ -68,7 +81,17 @@ class HTTPUtils {
     public static function setSessionObject($key, $object) {
         $_SESSION[$key] = serialize($object);
     }
-    
+
+    public static function sessionStatus() {
+        $status = session_status();
+        switch ($status) {
+        case PHP_SESSION_DISABLED: return "Sesiones inactivas";
+        case PHP_SESSION_NONE: return "No existe sesión activa";
+        case PHP_SESSION_ACTIVE: return "Sesión activa";
+        default: return "Información no disponible";
+        }
+    }    
+
     public static function cookieSetted($key) {
         return self::getCookies()->hasAttribute($key);
     }
@@ -115,6 +138,14 @@ class HTTPUtils {
         return self::getMethod($method==="GET" ?  INPUT_GET : INPUT_POST);
     }
 
+    /**
+     * getRequest Returns request values
+     * @return QueryParameters
+     */
+    public static function getFiles() {
+        return $_FILES;
+    }
+
     public static function getMethod($method = INPUT_GET) {
         $array = filter_input_array($method);
         return new QueryParameters($array); 
@@ -126,6 +157,25 @@ class HTTPUtils {
 
     public static function getContextPath() {
         $docRoot = self::getEnvironment()->getAttribute("DOCUMENT_ROOT");
-        return $docRoot;
+        $softcoatl = dirname(__FILE__);
+        $path = str_replace($docRoot, "", $softcoatl);
+        return $path;
     }
+
+    /**
+     * @deprecated 
+     * @see setSessionArrayValue
+     */
+    public static function setSessionBiValue($nameSession, $key, $value) {
+        $_SESSION[$nameSession][$key] = $value;
+    }    
+
+    /**
+     * @deprecated
+     * @see getSessionArrayValue
+     */
+    public static function getSessionBiValue($nameSession, $key) {
+        return $_SESSION[$nameSession][$key];
+    }
+    
 }

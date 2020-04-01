@@ -43,7 +43,7 @@ class Request {
     public function present($key) {
         return $this->request->presentAttribute($key);
     }
-    
+
     /**
      * @return array
      */
