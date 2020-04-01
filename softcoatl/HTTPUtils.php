@@ -77,6 +77,14 @@ class HTTPUtils {
     public static function setSessionValue($key, $value) {
         $_SESSION[$key] = $value;
     }
+    
+    public static function getSessionBiValue($nameSession, $key) {
+        return $_SESSION[$nameSession][$key];
+    }
+    
+    public static function setSessionBiValue($nameSession, $key, $value) {
+        $_SESSION[$nameSession][$key] = $value;
+    }
 
     public static function setSessionObject($key, $object) {
         $_SESSION[$key] = serialize($object);
