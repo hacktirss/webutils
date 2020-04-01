@@ -55,7 +55,7 @@ class HTTPUtils {
 
     public static function hasSessionArrayValue($name, $key) {
         return array_key_exists($name, $_SESSION)
-                && array_key_exists($key, $_SERVER[$name]);
+                && array_key_exists($key, $_SESSION[$name]);
     }
 
     public static function getSessionArrayValue($name, $key) {
