@@ -18,6 +18,7 @@ namespace com\softcoatl\utils;
 
 class HTTPUtils {
 
+    /*********************************************************** TODO create session object ***********************************************************/
     public static function isSessionValid() {
         return session_id() !== "" && isset($_SESSION);
     }
@@ -78,14 +79,6 @@ class HTTPUtils {
         $_SESSION[$key] = $value;
     }
     
-    public static function getSessionBiValue($nameSession, $key) {
-        return $_SESSION[$nameSession][$key];
-    }
-    
-    public static function setSessionBiValue($nameSession, $key, $value) {
-        $_SESSION[$nameSession][$key] = $value;
-    }
-
     public static function setSessionObject($key, $object) {
         $_SESSION[$key] = serialize($object);
     }
@@ -99,6 +92,7 @@ class HTTPUtils {
         default: return "Información no disponible";
         }
     }    
+    /*********************************************************** TODO create session object ***********************************************************/
 
     public static function cookieSetted($key) {
         return self::getCookies()->hasAttribute($key);
