@@ -140,12 +140,21 @@ class HTTPUtils {
         return self::getMethod($method==="GET" ?  INPUT_GET : INPUT_POST);
     }
 
+    public static function hasFile($file) {
+        return array_key_exists($file, $_FILES)
+                && $_FILES[$file]['size']>0;
+    }
+
     /**
      * getRequest Returns request values
      * @return QueryParameters
      */
     public static function getFiles() {
         return $_FILES;
+    }
+
+    public static function getFile($key) {
+        return $_FILES[$key];
     }
 
     public static function getMethod($method = INPUT_GET) {
@@ -158,10 +167,7 @@ class HTTPUtils {
     }
 
     public static function getContextPath() {
-        $docRoot = self::getEnvironment()->getAttribute("DOCUMENT_ROOT");
-        $softcoatl = dirname(__FILE__);
-        $path = str_replace($docRoot, "", $softcoatl);
-        return $path;
+        return self::getEnvironment()->getAttribute("DOCUMENT_ROOT");
     }
 
     /**

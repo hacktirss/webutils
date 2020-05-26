@@ -24,9 +24,10 @@ class PDOConnection {
 
         $dbc = Configuration::get();
         $dsn = $dbc->driver . ":host=" . $dbc->host . ";dbname=" . $dbc->database . ( array_key_exists("charset", $dbc) ? ";charset=" . $dbc->charset : "" );
-        
+
         try {
             $dbConn = new \PDO($dsn, $dbc->username, $dbc->pass, PDOConnection::$options);
+            $dbConn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $dbConn->exec("SET lc_time_names = 'es_MX'");
         } catch(\PDOException $pdoe) {
             error_log($pdoe->getMessage());
