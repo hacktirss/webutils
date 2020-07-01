@@ -16,4 +16,5 @@ require_once(dirname(__FILE__) . "/PDOConnection.php");
 require_once(dirname(__FILE__) . "/QueryParameters.php");
 require_once(dirname(__FILE__) . "/Request.php");
 require_once(dirname(__FILE__) . "/Utils.php");
+require_once(dirname(__FILE__) . "/BaseDAO.php");
 require_once(dirname(__FILE__) . "/BaseVO.php");
