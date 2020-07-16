@@ -16,7 +16,7 @@ use com\softcoatl\utils\IConnection;
 
 class BaseDAO {
 
-    /* @var $conn \mysqli */
+    /** @var \mysqli Objeto de Conexión a BD */
     protected $conn;
 
     public function __construct() {
