@@ -19,13 +19,21 @@ namespace com\softcoatl\utils;
 class HTTPUtils {
 
     /*********************************************************** TODO create session object ***********************************************************/
-    public static function isSessionValid() {
+    public static function startSession($sessionName = NULL) {
+        error_log("Getting session " . $sessionName);
+        session_name($sessionName);
+        return session_start();
+    }
+
+    public static function isSessionValid($sessionName = NULL) {
+        self::startSession($sessionName);
         return session_id() !== "" && isset($_SESSION);
     }
 
-    public static function sessionInvalidate() {
+    public static function sessionInvalidate($sessionName = NULL) {
+        self::startSession($sessionName);
         if (session_status() == PHP_SESSION_NONE) {
-            session_start();
+            utils\HTTPUtils::startSession("omicrom");
         }
         $_SESSION = array();
         $sessionName = session_name();
@@ -34,11 +42,14 @@ class HTTPUtils {
             setcookie($sessionName, '', 1, $params['path'], $params['domain'], $params['secure'], isset($params['httponly']));
         }
         session_destroy();
+        error_log("Session " . $sessionName . " destroyed");
     }
 
-    public static function sessionCreate() {
+    public static function sessionCreate($sessionName = NULL) {
+
         if (session_status() == PHP_SESSION_NONE) {
-            session_start();
+            error_log("Creating session " . $sessionName);
+            self::startSession($sessionName);
         }
         if (!self::sessionSetted("CREATED")) {
             session_regenerate_id();
@@ -72,10 +83,12 @@ class HTTPUtils {
     }
 
     public static function setSessionArrayValue($name, $key, $value) {
+        error_log("Setting " . $key . " in " . $name);
         $_SESSION[$name][$key] = $value;
     }
 
     public static function setSessionValue($key, $value) {
+        error_log("Setting " . $key);
         $_SESSION[$key] = $value;
     }
     
