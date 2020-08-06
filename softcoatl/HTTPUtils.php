@@ -83,12 +83,10 @@ class HTTPUtils {
     }
 
     public static function setSessionArrayValue($name, $key, $value) {
-        error_log("Setting " . $key . " in " . $name);
         $_SESSION[$name][$key] = $value;
     }
 
     public static function setSessionValue($key, $value) {
-        error_log("Setting " . $key);
         $_SESSION[$key] = $value;
     }
     
