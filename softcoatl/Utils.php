@@ -37,6 +37,6 @@ class Utils {
     public static function readableSize($size) {
         $exp = floor(log($size)/log(1024));
         $POSFIX = "bKMGTPE";
-        return sprintf("%.1f %s", $size/pow(1024, $exp), $POSFIX{$exp});
+        return sprintf("%.1f %s", $size/pow(1024, $exp), $POSFIX[$exp]);
     }
 }
