@@ -29,7 +29,7 @@ class IConnection {
 
         $dbc = Configuration::get();
 
-        $dbConn = new \mysqli($dbc->host, $dbc->username, $dbc->pass, $dbc->database);
+        $dbConn = new \mysqli($dbc->host, $dbc->username, $dbc->pass, $dbc->database, $dbc->port);
 
         if ($dbConn->connect_errno>0) {
             if ($dbConn->connect_errno) {
